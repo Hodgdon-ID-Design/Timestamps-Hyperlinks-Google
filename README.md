@@ -1,5 +1,7 @@
 # Timestamps-Hyperlinks-Google
 
+These scripts were employed as part of a project aimed at assisting our LMS administrators in monitoring the addition and removal of users from the LMS system. The objective was to streamline their daily tasks by allowing them to refer to a linked master sheet that would automatically update timestamps whenever a linked document was edited. These codes were integrated with other Google Sheet formulas to maximize efficiency.
+
 ---
 ## Update Time Stamps & retrieve hyperlinks from a column
 
