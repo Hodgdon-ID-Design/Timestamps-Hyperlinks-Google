@@ -1,0 +1,25 @@
+function updateLastModified() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getActiveSheet();
+
+  for (var i = 1; i <= sheet.getLastRow(); i++) {
+    var cell = sheet.getRange(i, 2); // change column number to match column B
+    var richTextValue = cell.getRichTextValue();
+    var url = richTextValue.getLinkUrl();
+
+    if (!url || !url.match(/\/spreadsheets\/d\//)) {
+      Logger.log("Skipped row " + i + ": No valid URL found");
+      continue;
+    }
+
+    try {
+      var fileId = url.match(/[-\w]{25,}/)[0];
+      var file = DriveApp.getFileById(fileId);
+      var lastModified = file.getLastUpdated();
+      var formattedDate = Utilities.formatDate(lastModified, Session.getScriptTimeZone(), "MM/dd/yyyy hh:mm:ss a");
+      sheet.getRange(i, 7).setValue(formattedDate);
+    } catch (e) {
+      Logger.log("Skipped row " + i + ": " + e);
+    }
+  }
+}
